@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.myjavamon.firstproject.javamon.db.Entity.Pokemon;
 import com.myjavamon.firstproject.javamon.db.Repo.PokemonRepo;
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 @Service
 public class PokemonService {
@@ -34,24 +35,26 @@ public class PokemonService {
     }
 
     public void loadPokemonDataFromCSV() {
-        String filePath = "src\\main\\resources\\Lista Pokemon prima generazione.txt";
+        String filePath = "src/main/resources/Lista Pokemon prima generazione.txt";
         List<Pokemon> pokemonList = new ArrayList<>();
         
         try (CSVReader csvReader = new CSVReader(new FileReader(filePath))) {
             String[] nextRecord;
-            
+            csvReader.readNext();
             while ((nextRecord = csvReader.readNext()) != null) {
+            
+
                 try {
-                    Long id = Long.parseLong(nextRecord[0]);
-                    String nome = nextRecord[1];
-                    String tipo = nextRecord[2];
-                    int hp = Integer.parseInt(nextRecord[3]);
-                    int attack = Integer.parseInt(nextRecord[4]);
-                    int defense = Integer.parseInt(nextRecord[5]);
-                    int speed = Integer.parseInt(nextRecord[6]);
+                    Long id = Long.parseLong(nextRecord[0].trim());
+                    String nome = nextRecord[1].trim();
+                    String tipo = nextRecord[2].trim();
+                    int hp = Integer.parseInt(nextRecord[3].trim());
+                    int attacco = Integer.parseInt(nextRecord[4].trim());
+                    int difesa = Integer.parseInt(nextRecord[5].trim());
+                    int velocità = Integer.parseInt(nextRecord[6].trim());
 
                     
-                    Pokemon pokemon = new Pokemon(id, nome, tipo, hp, attack, defense, speed);
+                    Pokemon pokemon = new Pokemon(id, nome, tipo, hp, attacco, difesa, velocità);
                     pokemonList.add(pokemon);
 
                 } catch (NumberFormatException e) {
@@ -60,11 +63,13 @@ public class PokemonService {
                 }
             }
 
-            // Salva tutti i Pokémon nel database
+            
             if (!pokemonList.isEmpty()) {
                 pokemonRepo.saveAll(pokemonList);
             }
             
+        } catch (CsvValidationException e) {
+            System.out.println("Errore di validazione CSV: " + e.getMessage());
 
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file CSV: " + filePath);

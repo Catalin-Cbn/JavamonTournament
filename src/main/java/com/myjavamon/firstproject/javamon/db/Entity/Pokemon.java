@@ -20,22 +20,25 @@ public class Pokemon {
     private int hp;
 
     @Column
-    private int attack;
+    private int attacco;
 
     @Column
-    private int defense;
+    private int difesa;
 
     @Column
-    private int speed;
+    private int velocità;
 
-    public Pokemon(Long id, String nome, String tipo, int hp, int attack, int defense, int speed) {
+    public Pokemon() {
+    }
+
+    public Pokemon(Long id, String nome, String tipo, int hp, int attacco, int difesa, int velocità) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.hp = hp;
-        this.attack = attack;
-        this.defense = defense;
-        this.speed = speed;
+        this.attacco = attacco;
+        this.difesa = difesa;
+        this.velocità = velocità;
     }
 
     public Long getId() {
@@ -70,28 +73,28 @@ public class Pokemon {
         this.hp = hp;
     }
 
-    public int getAttack() {
-        return attack;
+    public int getAttacco() {
+        return attacco;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
+    public void setAttacco(int attacco) {
+        this.attacco = attacco;
     }
 
-    public int getDefense() {
-        return defense;
+    public int getDifesa() {
+        return difesa;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
+    public void setDifesa(int difesa) {
+        this.difesa = difesa;
     }
 
-    public int getSpeed() {
-        return speed;
+    public int getVelocità() {
+        return velocità;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public void setVelocità(int velocità) {
+        this.velocità = velocità;
     }
 
     @Override
@@ -100,9 +103,9 @@ public class Pokemon {
                 + ", \nNome = " + nome
                 + ", \nTipo = " + tipo
                 + ", \nHp = " + hp
-                + ", \nAttack = " + attack
-                + ", \ndefense = " + defense
-                + ", \nspeed = " + speed + "\n";
+                + ", \nAttacco = " + attacco
+                + ", \nDifesa = " + difesa
+                + ", \nVelocità = " + velocità + "\n";
     }
 
 }
